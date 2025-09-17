@@ -1,12 +1,17 @@
-import { config } from "dotenv";
-config();
 
-const envConfig = {
-  portNumber: process.env.PORT,
-  //JWT_SECRET : process.env.JWT_SECRET,
-  //environment : process.env.ENVIRONMENT,
-  //GOOGLE_CLIENT_ID :process.env.GOOGLE_CLIENT_ID,
-  //GOOGLE_CLIENT_SECRET : process.env.GOOGLE_CLIENT_SECRET
-};
+import {config} from 'dotenv'
+config()
 
-export default envConfig;
+
+export const envConfig = {
+    port : process.env.PORT, 
+    connectionString : process.env.CONNECTION_STRING, 
+    jwtSecretKey : process.env.JWT_SECRET_KEY, 
+    jwtExpiresIn : process.env.JWT_EXPIRES_IN, 
+    email : process.env.EMAIL, 
+    emailPassword : process.env.EMAIL_PASSWORD, 
+    adminEmail : process.env.ADMIN_EMAIL, 
+    adminPassword : process.env.ADMIN_PASSWORD, 
+    adminUsername : process.env.ADMIN_USERNAME
+
+}

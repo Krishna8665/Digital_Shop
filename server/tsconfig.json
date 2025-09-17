@@ -1,5 +1,14 @@
 {
-  "compilerOptions": {
+  
+
+    "compilerOptions": {
+    
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "strictPropertyInitialization": false,
+    
+    
+    
     // File layout
     "rootDir": "./src",
     "outDir": "./dist",
