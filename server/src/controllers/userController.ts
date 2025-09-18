@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import User from "../database/models/userModel";
-
+import bcrypt from 'bcrypt'
 
 class UserController{
     static async register(req:Request,res:Response){
@@ -17,7 +17,7 @@ class UserController{
         const user = await User.create({
             username, 
             email, 
-            password 
+            password : bcrypt.hashSync(password,12)
     
         })
         // await sendMail({
