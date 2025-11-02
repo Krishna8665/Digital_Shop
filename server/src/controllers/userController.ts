@@ -36,7 +36,7 @@ class UserController{
         })
     }
     static async login(req:Request,res:Response){
-        // accept incoming data --> email, 
+        // accept incoming data --> email, password
         const {email, password} = req.body // password - manish --> hash() --> $234234324fjlsdf
         if(!email || !password){
             res.status(400).json({
