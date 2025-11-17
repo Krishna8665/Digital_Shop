@@ -178,11 +178,10 @@ class UserController{
     //     })
     //     res.status(200).json({
     //         message : "Users deleted successfully", 
-           
+    
     //     })
     //}
-
+    
 }
-
 
 export default UserController
