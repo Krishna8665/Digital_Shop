@@ -1,28 +1,32 @@
-import {Sequelize} from 'sequelize-typescript'
-import { envConfig } from '../config/config'
-import User from './models/userModel'
+import { Sequelize } from "sequelize-typescript";
+import { envConfig } from "../config/config";
+import User from "./models/userModel";
 
+const sequelize = new Sequelize(envConfig.connectionString!, {
+  dialect: "postgres",
+  models: [User],
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false, // Required for Supabase Pooler
+    },
+  },
+  logging: false, // Disable SQL logs, optional
+});
 
-const sequelize = new Sequelize(envConfig.connectionString as string,{
-    models : [__dirname + '/models']
-})
+(async () => {
+  try {
+    await sequelize.authenticate();
+    console.log("Connected to Supabase! 😀");
+    await sequelize.sync({ force: false, alter: false });
+    console.log("Database synced!");
+  } catch (err) {
+    console.error("ERROR 😝 :", err);
+  }
+})();
 
-try {
-    sequelize.authenticate()
-    .then(()=>{
-        console.log("Connected !!! 😀")
-    })
-    .catch(err=>{
-        console.log("ERROR 😝 : ", err)
-    })
-} catch (error) {
-    console.log(error)
-}
-
-sequelize.sync({force : false,alter:false}).then(()=>{
-    console.log("synced !!")
-})
-// relationships // 
+export default sequelize;
+// relationships //
 // Category.hasOne(Product,{foreignKey:'categoryId'})
 // Product.belongsTo(Category,{foreignKey:'categoryId'})
 
@@ -30,7 +34,7 @@ sequelize.sync({force : false,alter:false}).then(()=>{
 // User.hasMany(Order,{foreignKey:'userId'})
 // Order.belongsTo(User,{foreignKey:'userId'})
 
-// // Payment X Order 
+// // Payment X Order
 // Payment.hasOne(Order,{foreignKey:'paymentId'})
 // Order.belongsTo(Payment,{foreignKey:'paymentId'})
 
@@ -40,11 +44,10 @@ sequelize.sync({force : false,alter:false}).then(()=>{
 // Product.hasMany(OrderDetails,{foreignKey:'productId'})
 // OrderDetails.belongsTo(Product,{foreignKey:'productId'})
 
-// // cart - user 
+// // cart - user
 // Cart.belongsTo(User,{foreignKey:"userId"})
 // User.hasOne(Cart,{foreignKey:"userId"})
 
-// // cart - product 
+// // cart - product
 // Cart.belongsTo(Product,{foreignKey:"productId"})
 // Product.hasMany(Cart,{foreignKey:"productId"})
-export default sequelize

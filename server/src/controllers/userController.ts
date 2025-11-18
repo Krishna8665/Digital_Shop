@@ -65,10 +65,10 @@ class UserController{
                 })
             }else{
                 // if password milyo vane --> token generate(jwt)    
-              const token = generateToken(user.id)
+              
                 res.status(200).json({
                     message : "Logged in success 🥰", 
-                    token
+                    
                 })
        }
         }
